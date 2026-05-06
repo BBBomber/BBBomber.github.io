@@ -1,1 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Spell Slip - Join Match</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    body {
+      background: #0e0e1a;
+      color: #f0e6d3;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .card { max-width: 360px; width: 100%; }
+
+    .title {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #e8c97e;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: #a09080;
+      margin-bottom: 40px;
+    }
+
+    .code-box {
+      background: #1a1a2e;
+      border: 1px solid #2e2e4e;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 32px;
+    }
+
+    .code-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #a09080;
+      margin-bottom: 8px;
+    }
+
+    .code-value {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: 8px;
+      color: #e8c97e;
+    }
+
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      margin-bottom: 12px;
+    }
+
+    .btn-primary {
+      background: #e8c97e;
+      color: #0e0e1a;
+    }
+
+    .hidden { display: none; }
+
+    .note {
+      font-size: 13px;
+      color: #6a6070;
+      margin-top: 24px;
+      line-height: 1.6;
+    }
+
+    .error-msg {
+      font-size: 15px;
+      color: #a09080;
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="title">Spell Slip</div>
+    <div class="subtitle">Word Duel Invitation</div>
+
+    <div id="validState" class="hidden">
+      <div class="code-box">
+        <div class="code-label">Match Code</div>
+        <div id="codeDisplay" class="code-value"></div>
+      </div>
+
+      <a id="storeBtn"
+         class="btn btn-primary"
+         href="https://play.google.com/store/apps/details?id=com.g4games.spellslip">
+        Download Spell Slip
+      </a>
+
+      <div class="note">
+        Already have the game? Open Spell Slip and enter the code in VS mode.
+      </div>
+    </div>
+
+    <div id="invalidState" class="hidden">
+      <div class="error-msg">No match code found in this link.</div>
+      <a class="btn btn-primary"
+         href="https://play.google.com/store/apps/details?id=com.g4games.spellslip">
+        Download Spell Slip
+      </a>
+    </div>
+  </div>
+
+  <script>
+
+
+    var STORE_URL = "https://play.google.com/store/apps/details?id=com.g4games.spellslip";
+
+    var params = new URLSearchParams(window.location.search);
+    var raw = params.get("code");
+
+    if (raw && /^[A-Za-z0-9]{4,}$/.test(raw)) {
+      var code = raw.toUpperCase();
+      document.getElementById("codeDisplay").textContent = code;
+      document.getElementById("storeBtn").href = STORE_URL;
+      document.getElementById("validState").classList.remove("hidden");
+    } else {
+      document.getElementById("invalidState").classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
